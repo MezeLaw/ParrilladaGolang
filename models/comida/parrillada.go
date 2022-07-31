@@ -5,14 +5,14 @@ type Parrillada struct {
 	Cortes []Corte `json:"cortes"`
 }
 
-func NewParrillada(cortes []Corte) Parrillada {
+func NewParrillada(cortes []Corte) IComida {
 	pesoParrillada := CalcularPesoDeParrillada(cortes)
 	c := Comida{
 		Peso:       pesoParrillada,
 		AptoVegano: false,
 		Valoracion: CalcularValoracionParrillada(cortes),
 	}
-	return Parrillada{
+	return &Parrillada{
 		Comida: c,
 		Cortes: cortes,
 	}

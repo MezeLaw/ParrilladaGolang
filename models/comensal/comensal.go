@@ -8,8 +8,8 @@ type IComensal interface {
 }
 
 type Comensal struct {
-	ComidasFavoritas  []comida.Comida
-	ComidasConsumidas []comida.Comida
+	ComidasFavoritas  []comida.Comida `json:"comidas_favoritas"`
+	ComidasConsumidas []comida.Comida `json:"comidas_consumidas"`
 }
 
 func NewComensal(comidasFavoritas []comida.Comida, comidasConsumidas []comida.Comida) Comensal {
