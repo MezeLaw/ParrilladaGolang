@@ -21,5 +21,5 @@ func NewCorte(nombre string, calidad int, peso float64) Corte {
 
 //Arbitrariamente defino como calidad minima 1, para evitar algunos escenarios
 func CalidadValida(calidad int) bool {
-	return calidad < 1
+	return calidad > 1
 }

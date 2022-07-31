@@ -6,12 +6,12 @@ type Provoleta struct {
 	Especial      bool   `json:"especial"`
 }
 
-func NewProvoleta(peso float64, tieneEspecias bool) IComida {
+func NewProvoleta(peso float64, tieneEspecias bool) Provoleta {
 	c := Comida{
 		Peso:       peso,
 		AptoVegano: !tieneEspecias,
 	}
-	return &Provoleta{
+	return Provoleta{
 		Comida:        c,
 		TieneEspecias: tieneEspecias,
 		Especial:      tieneEspecias || c.esAbundante(),

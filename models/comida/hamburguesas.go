@@ -4,7 +4,7 @@ type HamburguesaDeCarne struct {
 	Hamburgesa Hamburgesa `json:"hamburgesa"`
 }
 
-func NewHamburguesaDeCarne(tipoDePan string) IComida {
+func NewHamburguesaDeCarne(tipoDePan string) HamburguesaDeCarne {
 
 	h := NewHamburguesa(tipoDePan)
 	h.Comida.AptoVegano = false
@@ -12,7 +12,7 @@ func NewHamburguesaDeCarne(tipoDePan string) IComida {
 	hdc := HamburguesaDeCarne{
 		Hamburgesa: h,
 	}
-	return &hdc
+	return hdc
 }
 
 func (hdc *HamburguesaDeCarne) CalcularValoracion() {
