@@ -10,14 +10,6 @@ type Comida struct {
 	Valoracion int     `json:"valoracion"`
 }
 
-func NewComida(peso float64, aptoVegano bool, valoracion int) Comida {
-	return Comida{
-		Peso:       peso,
-		AptoVegano: aptoVegano,
-		Valoracion: valoracion,
-	}
-}
-
 func (c *Comida) esAbundante() bool {
 	return c.Peso > 250
 }
