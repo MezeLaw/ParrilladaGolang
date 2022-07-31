@@ -1,7 +1,7 @@
 package comida
 
 type HamburguesaDeCarne struct {
-	Hamburgesa Hamburgesa `json:"hamburgesa"`
+	Hamburgesa
 }
 
 func NewHamburguesaDeCarne(tipoDePan string) HamburguesaDeCarne {
@@ -12,6 +12,7 @@ func NewHamburguesaDeCarne(tipoDePan string) HamburguesaDeCarne {
 	hdc := HamburguesaDeCarne{
 		Hamburgesa: h,
 	}
+	hdc.CalcularValoracion()
 	return hdc
 }
 

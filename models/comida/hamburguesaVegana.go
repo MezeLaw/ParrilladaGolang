@@ -1,8 +1,8 @@
 package comida
 
 type HamburguesaVegana struct {
-	Hamburgesa          Hamburgesa `json:"hamburgesa"`
-	IngredienteMedallon string     `json:"ingrediente_medallon"`
+	Hamburgesa
+	IngredienteMedallon string `json:"ingrediente_medallon"`
 }
 
 func NewHamburguesaVegana(tipoDePan string, ingredienteMedallon string) HamburguesaVegana {
@@ -12,6 +12,7 @@ func NewHamburguesaVegana(tipoDePan string, ingredienteMedallon string) Hamburgu
 		Hamburgesa:          h,
 		IngredienteMedallon: ingredienteMedallon,
 	}
+	hv.CalcularValoracion()
 	return hv
 }
 

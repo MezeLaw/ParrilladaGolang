@@ -5,17 +5,10 @@ type IComida interface {
 }
 
 type Comida struct {
+	ID         string  `json:"id"`
 	Peso       float64 `json:"peso"`
 	AptoVegano bool    `json:"apto_vegano"`
 	Valoracion int     `json:"valoracion"`
-}
-
-func NewComida(peso float64, aptoVegano bool, valoracion int) Comida {
-	return Comida{
-		Peso:       peso,
-		AptoVegano: aptoVegano,
-		Valoracion: valoracion,
-	}
 }
 
 func (c *Comida) esAbundante() bool {
