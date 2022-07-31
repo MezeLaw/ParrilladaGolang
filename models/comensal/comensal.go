@@ -10,11 +10,12 @@ type IComensal interface {
 }
 
 type Comensal struct {
+	ID                string           `json:"id"`
 	Peso              float64          `json:"peso"`
 	ComidasFavoritas  []comida.IComida `json:"comidas_favoritas"`
 	ComidasConsumidas []comida.IComida `json:"comidas_consumidas"`
 }
 
-func (c *Comensal) comer(comida comida.IComida) {
+func (c *Comensal) Comer(comida comida.IComida) {
 	c.ComidasConsumidas = append(c.ComidasConsumidas, comida)
 }

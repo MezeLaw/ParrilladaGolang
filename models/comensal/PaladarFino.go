@@ -7,66 +7,59 @@ import (
 	"log"
 )
 
-type HambrePopular struct {
+type PaladarFino struct {
 	Comensal
 }
 
-func NewHambrePopular(peso float64) HambrePopular {
-
-	comidasFavoritas := []comida.IComida{}
-	comidasConsumidas := []comida.IComida{}
-
-	comensal := Comensal{
+func NewPaladarFino(peso float64) PaladarFino {
+	return PaladarFino{Comensal{
 		ID:                uuid.New().String(),
 		Peso:              peso,
-		ComidasFavoritas:  comidasFavoritas,
-		ComidasConsumidas: comidasConsumidas,
-	}
-
-	return HambrePopular{Comensal: comensal}
+		ComidasFavoritas:  []comida.IComida{},
+		ComidasConsumidas: []comida.IComida{},
+	}}
 }
 
-func (hp *HambrePopular) LeAgradaComida(c comida.IComida) bool {
+func (pf *PaladarFino) LeAgradaComida(c comida.IComida) bool {
 
 	switch utils.RetornarStructHijoNombre(c) {
 	case "*comida.Provoleta":
 		p := c.(*comida.Provoleta)
-		if p.Comida.EsAbundante() {
-			hp.ComidasFavoritas = append(hp.ComidasFavoritas, c)
+		if p.Comida.Peso > 150.0 && p.Comida.Peso < 300.0 && p.Valoracion > 100 {
+			pf.ComidasFavoritas = append(pf.ComidasFavoritas, p)
 			return true
 		}
-
+		return false
 	case "*comida.HamburguesaVegana":
 		hv := c.(*comida.HamburguesaVegana)
-		if hv.Comida.EsAbundante() {
-			//Siempre deberia NO SER abundante, pero por las dudas pregunto
-			hp.ComidasFavoritas = append(hp.ComidasFavoritas, c)
+		if hv.Comida.Peso > 150.0 && hv.Comida.Peso < 300.0 && hv.Valoracion > 100 {
+			pf.ComidasFavoritas = append(pf.ComidasFavoritas, hv)
 			return true
 		}
+		return false
 	case "*comida.HamburguesaDeCarne":
 		hdc := c.(*comida.HamburguesaDeCarne)
-		if hdc.Hamburgesa.Comida.EsAbundante() {
-			hp.ComidasFavoritas = append(hp.ComidasFavoritas, c)
+		if hdc.Comida.Peso > 150.0 && hdc.Comida.Peso < 300.0 && hdc.Valoracion > 100 {
+			pf.ComidasFavoritas = append(pf.ComidasFavoritas, hdc)
 			return true
 		}
+		return false
 	case "*comida.Parrillada":
 		p := c.(*comida.Parrillada)
-		if p.Comida.EsAbundante() {
-			hp.ComidasFavoritas = append(hp.ComidasFavoritas, c)
+		if p.Comida.Peso > 150.0 && p.Comida.Peso < 300.0 && p.Valoracion > 100 {
+			pf.ComidasFavoritas = append(pf.ComidasFavoritas, p)
 			return true
 		}
+		return false
 	default:
 		return false
 	}
-	//TODO Verificar si es necesario
-	return false
 }
 
-func (hp *HambrePopular) Satisfecho() bool {
-
+func (pf *PaladarFino) Satisfecho() bool {
 	pesoComidaConsumida := 0.0
 
-	for _, c := range hp.ComidasConsumidas {
+	for _, c := range pf.ComidasConsumidas {
 
 		switch utils.RetornarStructHijoNombre(c) {
 		case "*comida.Provoleta":
@@ -88,5 +81,5 @@ func (hp *HambrePopular) Satisfecho() bool {
 		}
 
 	}
-	return pesoComidaConsumida >= hp.Peso*0.01
+	return pesoComidaConsumida >= pf.Peso*0.01 && (len(pf.ComidasConsumidas)%2 == 0)
 }
