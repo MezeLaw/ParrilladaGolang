@@ -1,5 +1,7 @@
 package comida
 
+import "github.com/google/uuid"
+
 type Hamburgesa struct {
 	Comida         Comida `json:"comida"`
 	ValoracionBase int    `json:"valoracion_base"`
@@ -16,6 +18,7 @@ func NewHamburguesa(tipoDePan string) Hamburgesa {
 
 	comida := Comida{
 		Peso: 250,
+		ID:   uuid.New().String(),
 	}
 	//Por default si el pan es invalido construyo la hamburgesa con industrial
 	if PanValido(tipoDePan) {

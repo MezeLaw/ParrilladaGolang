@@ -5,6 +5,7 @@ type IComida interface {
 }
 
 type Comida struct {
+	ID         string  `json:"id"`
 	Peso       float64 `json:"peso"`
 	AptoVegano bool    `json:"apto_vegano"`
 	Valoracion int     `json:"valoracion"`

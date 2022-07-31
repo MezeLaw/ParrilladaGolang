@@ -1,5 +1,7 @@
 package comida
 
+import "github.com/google/uuid"
+
 type Provoleta struct {
 	Comida        Comida `json:"comida"`
 	TieneEspecias bool   `json:"tiene_especias"`
@@ -10,6 +12,7 @@ func NewProvoleta(peso float64, tieneEspecias bool) Provoleta {
 	c := Comida{
 		Peso:       peso,
 		AptoVegano: !tieneEspecias,
+		ID:         uuid.New().String(),
 	}
 	return Provoleta{
 		Comida:        c,

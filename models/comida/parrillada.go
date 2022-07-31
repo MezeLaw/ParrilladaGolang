@@ -1,5 +1,7 @@
 package comida
 
+import "github.com/google/uuid"
+
 type Parrillada struct {
 	Comida Comida  `json:"comida"`
 	Cortes []Corte `json:"cortes"`
@@ -11,6 +13,7 @@ func NewParrillada(cortes []Corte) Parrillada {
 		Peso:       pesoParrillada,
 		AptoVegano: false,
 		Valoracion: CalcularValoracionParrillada(cortes),
+		ID:         uuid.New().String(),
 	}
 	return Parrillada{
 		Comida: c,
