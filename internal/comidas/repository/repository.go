@@ -116,7 +116,7 @@ func (r *Repository) PlatoCarnivoroMasFuerte() comida.IComida {
 			}
 		case "*comida.HamburguesaDeCarne":
 			hdc := c.(*comida.HamburguesaDeCarne)
-			if hdc.Hamburgesa.Comida.AptoVegano && hdc.Hamburgesa.Comida.Valoracion > mayorValoracion {
+			if hdc.Hamburgesa.Comida.Valoracion > mayorValoracion {
 				mayorValoracion = hdc.Hamburgesa.Comida.Valoracion
 				indiceMejorValorado = indice
 			}
