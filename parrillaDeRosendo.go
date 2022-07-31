@@ -26,6 +26,7 @@ func main() {
 	router.GET("/cocina/platos", comidasHandler.ConsultarPlatosDisponibles)
 	router.GET("/cocina/ofertaVegetariana", comidasHandler.OfertaVegetariana)
 	router.GET("/cocina/platoCarnivoroMasFuerte", comidasHandler.PlatoCarnivoroMasFuerte)
+	router.DELETE("/cocina/platos/:id", comidasHandler.EliminarPlato)
 
 	router.Run()
 }

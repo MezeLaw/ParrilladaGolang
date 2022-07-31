@@ -96,7 +96,11 @@ func (r *Repository) OfertaVegetariana() bool {
 			}
 		}
 	}
-	return (cantidadPlatosCarnivoros-cantidadPlatosVegetarianos) <= 2 || (cantidadPlatosVegetarianos-cantidadPlatosCarnivoros) <= 2
+	if cantidadPlatosCarnivoros > cantidadPlatosVegetarianos {
+		return (cantidadPlatosCarnivoros - cantidadPlatosVegetarianos) <= 2
+	} else {
+		return cantidadPlatosVegetarianos-cantidadPlatosCarnivoros <= 2
+	}
 }
 
 func (r *Repository) PlatoCarnivoroMasFuerte() comida.IComida {
