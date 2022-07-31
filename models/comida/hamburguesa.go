@@ -3,7 +3,7 @@ package comida
 import "github.com/google/uuid"
 
 type Hamburgesa struct {
-	Comida         Comida `json:"comida"`
+	Comida
 	ValoracionBase int    `json:"valoracion_base"`
 	TipoDePan      string `json:"tipo_de_pan"`
 }

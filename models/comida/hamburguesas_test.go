@@ -2,7 +2,6 @@ package comida
 
 import (
 	"github.com/go-playground/assert/v2"
-	"reflect"
 	"testing"
 )
 
@@ -25,30 +24,6 @@ func TestHamburguesaDeCarne_CalcularValoracion(t *testing.T) {
 				Hamburgesa: tt.fields.Hamburgesa,
 			}
 			hdc.CalcularValoracion()
-		})
-	}
-}
-
-func TestNewHamburguesaDeCarne(t *testing.T) {
-	type args struct {
-		tipoDePan string
-	}
-	tests := []struct {
-		name string
-		args args
-		want HamburguesaDeCarne
-	}{
-		{
-			name: "Test with valid  values should pass",
-			args: args{tipoDePan: MasaMadre},
-			want: NewHamburguesaDeCarne(MasaMadre),
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := NewHamburguesaDeCarne(tt.args.tipoDePan); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewHamburguesaDeCarne() = %v, want %v", got, tt.want)
-			}
 		})
 	}
 }

@@ -3,9 +3,9 @@ package comida
 import "github.com/google/uuid"
 
 type Provoleta struct {
-	Comida        Comida `json:"comida"`
-	TieneEspecias bool   `json:"tiene_especias"`
-	Especial      bool   `json:"especial"`
+	Comida
+	TieneEspecias bool `json:"tiene_especias"`
+	Especial      bool `json:"especial"`
 }
 
 func NewProvoleta(peso float64, tieneEspecias bool) Provoleta {
@@ -14,11 +14,13 @@ func NewProvoleta(peso float64, tieneEspecias bool) Provoleta {
 		AptoVegano: !tieneEspecias,
 		ID:         uuid.New().String(),
 	}
-	return Provoleta{
+	provoleta := Provoleta{
 		Comida:        c,
 		TieneEspecias: tieneEspecias,
 		Especial:      tieneEspecias || c.esAbundante(),
 	}
+	provoleta.CalcularValoracion()
+	return provoleta
 }
 
 func (p *Provoleta) CalcularValoracion() {

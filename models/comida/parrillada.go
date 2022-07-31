@@ -3,7 +3,7 @@ package comida
 import "github.com/google/uuid"
 
 type Parrillada struct {
-	Comida Comida  `json:"comida"`
+	Comida
 	Cortes []Corte `json:"cortes"`
 }
 
@@ -15,10 +15,13 @@ func NewParrillada(cortes []Corte) Parrillada {
 		Valoracion: CalcularValoracionParrillada(cortes),
 		ID:         uuid.New().String(),
 	}
-	return Parrillada{
+	parrillada := Parrillada{
 		Comida: c,
 		Cortes: cortes,
 	}
+	parrillada.CalcularValoracion()
+	parrillada.Comida.Peso = CalcularPesoDeParrillada(parrillada.Cortes)
+	return parrillada
 }
 
 func CalcularPesoDeParrillada(cortes []Corte) float64 {

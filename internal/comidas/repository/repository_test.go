@@ -23,4 +23,11 @@ func TestRetornarStructHijoNombres(t *testing.T) {
 	for _, c := range comidas {
 		println(RetornarStructHijoNombre(c))
 	}
+
+	/*
+	*comida.Provoleta
+	*comida.HamburguesaVegana
+	*comida.HamburguesaDeCarne
+	*comida.Parrillada
+	 */
 }
