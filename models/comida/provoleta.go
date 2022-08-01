@@ -17,7 +17,7 @@ func NewProvoleta(peso float64, tieneEspecias bool) Provoleta {
 	provoleta := Provoleta{
 		Comida:        c,
 		TieneEspecias: tieneEspecias,
-		Especial:      tieneEspecias || c.esAbundante(),
+		Especial:      tieneEspecias || c.EsAbundante(),
 	}
 	provoleta.CalcularValoracion()
 	return provoleta

@@ -2,7 +2,7 @@ package repository
 
 import (
 	"Parrillada/models/comida"
-	"reflect"
+	"Parrillada/utils"
 )
 
 type Repository struct {
@@ -20,7 +20,7 @@ func (r *Repository) AgregarPlato(plato comida.IComida) []comida.IComida {
 
 func (r *Repository) EliminarPlato(id string) []comida.IComida {
 	for index, c := range r.Comidas {
-		switch RetornarStructHijoNombre(c) {
+		switch utils.RetornarNombreStructHijoComida(c) {
 		case "*comida.Provoleta":
 			p := c.(*comida.Provoleta)
 			if p.Comida.ID == id {
@@ -65,7 +65,7 @@ func (r *Repository) OfertaVegetariana() bool {
 	cantidadPlatosVegetarianos := 0
 	cantidadPlatosCarnivoros := 0
 	for _, c := range r.Comidas {
-		switch RetornarStructHijoNombre(c) {
+		switch utils.RetornarNombreStructHijoComida(c) {
 		case "*comida.Provoleta":
 			p := c.(*comida.Provoleta)
 			if p.Comida.AptoVegano {
@@ -107,7 +107,7 @@ func (r *Repository) PlatoCarnivoroMasFuerte() comida.IComida {
 	indiceMejorValorado := 0
 	mayorValoracion := 0
 	for indice, c := range r.Comidas {
-		switch RetornarStructHijoNombre(c) {
+		switch utils.RetornarNombreStructHijoComida(c) {
 		case "*comida.Provoleta":
 			p := c.(*comida.Provoleta)
 			if p.Comida.AptoVegano && p.Comida.Valoracion > mayorValoracion {
@@ -131,9 +131,10 @@ func (r *Repository) PlatoCarnivoroMasFuerte() comida.IComida {
 	return r.Comidas[indiceMejorValorado]
 }
 
-func RetornarStructHijoNombre(plato comida.IComida) string {
+/*func RetornarNombreStructHijoComida(plato comida.IComida) string {
 
 	childStruct := reflect.TypeOf(plato)
 
 	return childStruct.String()
 }
+*/

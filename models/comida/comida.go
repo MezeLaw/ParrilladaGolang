@@ -11,6 +11,6 @@ type Comida struct {
 	Valoracion int     `json:"valoracion"`
 }
 
-func (c *Comida) esAbundante() bool {
+func (c *Comida) EsAbundante() bool {
 	return c.Peso > 250
 }

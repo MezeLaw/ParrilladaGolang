@@ -41,7 +41,6 @@ func CalcularValoracionParrillada(cortes []Corte) int {
 	return valoracion
 }
 
-//TODO ver si esto se realiza al inicializar
 func (p *Parrillada) CalcularValoracion() {
 	p.Comida.Valoracion = CalcularValoracionParrillada(p.Cortes)
 }

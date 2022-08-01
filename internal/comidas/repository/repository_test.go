@@ -2,6 +2,7 @@ package repository
 
 import (
 	"Parrillada/models/comida"
+	"Parrillada/utils"
 	"testing"
 )
 
@@ -21,7 +22,7 @@ func TestRetornarStructHijoNombres(t *testing.T) {
 	comidas = append(comidas, &parrillada)
 
 	for _, c := range comidas {
-		println(RetornarStructHijoNombre(c))
+		println(utils.RetornarNombreStructHijoComida(c))
 	}
 
 	/*
