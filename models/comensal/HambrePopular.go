@@ -59,7 +59,6 @@ func (hp *HambrePopular) LeAgradaComida(c comida.IComida) bool {
 	default:
 		return false
 	}
-	//TODO Verificar si es necesario
 	return false
 }
 
