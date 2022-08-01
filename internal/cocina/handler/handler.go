@@ -95,7 +95,7 @@ func (h *Handler) ObtenerComidasPreferidas(c *gin.Context) {
 
 func (h *Handler) ElegirPlato(c *gin.Context) {
 	comensalId := c.Param("id")
-	//TODO inyectar servicio para escribir en el mismo repo
+
 	if comensalId == "" {
 		c.JSON(http.StatusBadRequest, "Ingrese un id de comensal valido")
 	}
