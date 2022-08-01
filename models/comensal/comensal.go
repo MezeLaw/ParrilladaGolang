@@ -14,6 +14,7 @@ type Comensal struct {
 	Peso              float64          `json:"peso"`
 	ComidasFavoritas  []comida.IComida `json:"comidas_favoritas"`
 	ComidasConsumidas []comida.IComida `json:"comidas_consumidas"`
+	TipoDeComensal    string           `json:"tipo_de_comensal"`
 }
 
 func (c *Comensal) Comer(comida comida.IComida) {

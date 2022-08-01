@@ -11,12 +11,13 @@ type Vegetariano struct {
 	Comensal
 }
 
-func NewVegetariano(peso float64) Vegetariano {
+func NewVegetariano(peso float64, tipoDeComensal string) Vegetariano {
 	comensal := Comensal{
 		ID:                uuid.New().String(),
 		Peso:              peso,
 		ComidasFavoritas:  []comida.IComida{},
 		ComidasConsumidas: []comida.IComida{},
+		TipoDeComensal:    tipoDeComensal,
 	}
 
 	return Vegetariano{comensal}
@@ -25,7 +26,7 @@ func NewVegetariano(peso float64) Vegetariano {
 func (v *Vegetariano) LeAgradaComida(c comida.IComida) bool {
 
 	//Todas con calific > 85 & aptoVeg
-	switch utils.RetornarStructHijoNombre(c) {
+	switch utils.RetornarNombreStructHijoComida(c) {
 	case "*comida.Provoleta":
 		p := c.(*comida.Provoleta)
 		if p.Comida.AptoVegano && p.Comida.Valoracion > 85 {
@@ -52,7 +53,7 @@ func (v *Vegetariano) Satisfecho() bool {
 
 	for _, c := range v.ComidasConsumidas {
 
-		switch utils.RetornarStructHijoNombre(c) {
+		switch utils.RetornarNombreStructHijoComida(c) {
 		case "*comida.Provoleta":
 			p := c.(*comida.Provoleta)
 			pesoComidaConsumida += p.Peso
@@ -79,7 +80,7 @@ func (v *Vegetariano) NingunaEsAbundante() bool {
 
 	for _, c := range v.ComidasConsumidas {
 
-		switch utils.RetornarStructHijoNombre(c) {
+		switch utils.RetornarNombreStructHijoComida(c) {
 		case "*comida.Provoleta":
 			p := c.(*comida.Provoleta)
 			if p.Comida.EsAbundante() {

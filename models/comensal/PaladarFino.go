@@ -11,18 +11,19 @@ type PaladarFino struct {
 	Comensal
 }
 
-func NewPaladarFino(peso float64) PaladarFino {
+func NewPaladarFino(peso float64, tipoDeComensal string) PaladarFino {
 	return PaladarFino{Comensal{
 		ID:                uuid.New().String(),
 		Peso:              peso,
 		ComidasFavoritas:  []comida.IComida{},
 		ComidasConsumidas: []comida.IComida{},
+		TipoDeComensal:    tipoDeComensal,
 	}}
 }
 
 func (pf *PaladarFino) LeAgradaComida(c comida.IComida) bool {
 
-	switch utils.RetornarStructHijoNombre(c) {
+	switch utils.RetornarNombreStructHijoComida(c) {
 	case "*comida.Provoleta":
 		p := c.(*comida.Provoleta)
 		if p.Comida.Peso > 150.0 && p.Comida.Peso < 300.0 && p.Valoracion > 100 {
@@ -61,7 +62,7 @@ func (pf *PaladarFino) Satisfecho() bool {
 
 	for _, c := range pf.ComidasConsumidas {
 
-		switch utils.RetornarStructHijoNombre(c) {
+		switch utils.RetornarNombreStructHijoComida(c) {
 		case "*comida.Provoleta":
 			p := c.(*comida.Provoleta)
 			pesoComidaConsumida += p.Peso

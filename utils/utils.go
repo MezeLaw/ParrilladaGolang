@@ -5,7 +5,7 @@ import (
 	"reflect"
 )
 
-func RetornarStructHijoNombre(plato comida.IComida) string {
+func RetornarNombreStructHijoComida(plato comida.IComida) string {
 
 	childStruct := reflect.TypeOf(plato)
 

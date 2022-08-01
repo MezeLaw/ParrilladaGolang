@@ -11,7 +11,7 @@ type HambrePopular struct {
 	Comensal
 }
 
-func NewHambrePopular(peso float64) HambrePopular {
+func NewHambrePopular(peso float64, tipoDeComensal string) HambrePopular {
 
 	comidasFavoritas := []comida.IComida{}
 	comidasConsumidas := []comida.IComida{}
@@ -21,6 +21,7 @@ func NewHambrePopular(peso float64) HambrePopular {
 		Peso:              peso,
 		ComidasFavoritas:  comidasFavoritas,
 		ComidasConsumidas: comidasConsumidas,
+		TipoDeComensal:    tipoDeComensal,
 	}
 
 	return HambrePopular{Comensal: comensal}
@@ -28,7 +29,7 @@ func NewHambrePopular(peso float64) HambrePopular {
 
 func (hp *HambrePopular) LeAgradaComida(c comida.IComida) bool {
 
-	switch utils.RetornarStructHijoNombre(c) {
+	switch utils.RetornarNombreStructHijoComida(c) {
 	case "*comida.Provoleta":
 		p := c.(*comida.Provoleta)
 		if p.Comida.EsAbundante() {
@@ -68,7 +69,7 @@ func (hp *HambrePopular) Satisfecho() bool {
 
 	for _, c := range hp.ComidasConsumidas {
 
-		switch utils.RetornarStructHijoNombre(c) {
+		switch utils.RetornarNombreStructHijoComida(c) {
 		case "*comida.Provoleta":
 			p := c.(*comida.Provoleta)
 			pesoComidaConsumida += p.Peso

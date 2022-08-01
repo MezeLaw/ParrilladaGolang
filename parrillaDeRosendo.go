@@ -1,9 +1,13 @@
 package main
 
 import (
+	handler2 "Parrillada/internal/cocina/handler"
+	repository2 "Parrillada/internal/cocina/repository"
+	service2 "Parrillada/internal/cocina/service"
 	"Parrillada/internal/comidas/handler"
 	"Parrillada/internal/comidas/repository"
 	"Parrillada/internal/comidas/service"
+	"Parrillada/models/comensal"
 	"Parrillada/models/comida"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -17,7 +21,12 @@ func main() {
 	comidasService := service.NewComidaService(&comidasRepository)
 	comidasHandler := handler.NewComidasHandler(comidasService)
 	//Comensales
+	comensales := []comensal.IComensal{}
+	comensalRepository := repository2.NewComensalesRepository(comensales, comidasRepository)
+	comensalService := service2.NewComensalesService(comensalRepository)
+	comensalHandler := handler2.NewComensalHandler(comensalService)
 
+	//Endpoints
 	router.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong!")
 	})
@@ -27,6 +36,11 @@ func main() {
 	router.GET("/cocina/ofertaVegetariana", comidasHandler.OfertaVegetariana)
 	router.GET("/cocina/platoCarnivoroMasFuerte", comidasHandler.PlatoCarnivoroMasFuerte)
 	router.DELETE("/cocina/platos/:id", comidasHandler.EliminarPlato)
+
+	router.POST("/cocina/comensales/", comensalHandler.AgregarComensal)
+	router.GET("/cocina/comensales/comidasPreferidas/:id", comensalHandler.ObtenerComidasPreferidas)
+	router.GET("/cocina/comensales/elegirPlato/:id", comensalHandler.ElegirPlato)
+	router.POST("/cocina/comensales/leAgradaPlato/:id", comensalHandler.LeAgradaPlato)
 
 	router.Run()
 }

@@ -22,7 +22,7 @@ func TestRetornarStructHijoNombres(t *testing.T) {
 	comidas = append(comidas, &parrillada)
 
 	for _, c := range comidas {
-		println(utils.RetornarStructHijoNombre(c))
+		println(utils.RetornarNombreStructHijoComida(c))
 	}
 
 	/*

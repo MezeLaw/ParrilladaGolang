@@ -19,7 +19,7 @@ y además ninguna de las tres comidas es abundante, es decir, ninguna supera los
 */
 
 func TestVegetarianoSatisfecho(t *testing.T) {
-	vegetariano := NewVegetariano(68500)
+	vegetariano := NewVegetariano(68500, "vegetariano")
 
 	provoleta := comida.NewProvoleta(190, true)
 	hv1 := comida.NewHamburguesaVegana(comida.MasaMadre, "garbanzos")
@@ -44,7 +44,7 @@ El resultado si esta satisfecho es: False porque 500 < 850
 */
 
 func TestComensalPopularInsatisfecho(t *testing.T) {
-	cp := NewHambrePopular(85000)
+	cp := NewHambrePopular(85000, "hambrePopular")
 
 	asado := comida.NewCorte("asado", 10, 250)
 	entrania := comida.NewCorte("entrania", 7, 200)
@@ -67,7 +67,7 @@ func TestComensalPopularInsatisfecho(t *testing.T) {
 */
 
 func TestComensalPaladarFinoLeAgradaHamburguesaDeMasaMadre(t *testing.T) {
-	pf := NewPaladarFino(85000)
+	pf := NewPaladarFino(85000, "paladarFino")
 	hc := comida.NewHamburguesaDeCarne(comida.MasaMadre)
 
 	leAgrada := pf.LeAgradaComida(&hc)
@@ -80,10 +80,26 @@ func TestComensalPaladarFinoLeAgradaHamburguesaDeMasaMadre(t *testing.T) {
 */
 
 func TestComensalPaladarFinoNoLeAgradaHamburguesaDeCarneConPanCasero(t *testing.T) {
-	pf := NewPaladarFino(85000)
+	pf := NewPaladarFino(85000, "paladarFino")
 	hc := comida.NewHamburguesaDeCarne(comida.PanCasero)
 
 	leAgrada := pf.LeAgradaComida(&hc)
 
 	assert.Equal(t, false, leAgrada)
 }
+
+/*
+func TestNombresChilds(t *testing.T) {
+	vegetariano := NewVegetariano(8500)
+	popular := NewHambrePopular(9000)
+	pFino := NewPaladarFino(7500)
+
+	println(RetornarNombreStructHijoComensal(&vegetariano))
+	println(RetornarNombreStructHijoComensal(&popular))
+	println(RetornarNombreStructHijoComensal(&pFino))
+
+	*comensal.Vegetariano
+	*comensal.HambrePopular
+	*comensal.PaladarFino
+}
+*/
