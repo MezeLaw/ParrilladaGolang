@@ -22,9 +22,9 @@ func main() {
 	comidasHandler := handler.NewComidasHandler(comidasService)
 	//Comensales
 	comensales := []comensal.IComensal{}
-	comensalRepository := repository2.NewComensalesRepository(comensales, comidasRepository)
+	comensalRepository := repository2.NewComensalesRepository(comensales, comidasService)
 	comensalService := service2.NewComensalesService(comensalRepository)
-	comensalHandler := handler2.NewComensalHandler(comensalService)
+	comensalHandler := handler2.NewComensalHandler(comensalService, comidasService)
 
 	//Endpoints
 	router.GET("/ping", func(c *gin.Context) {

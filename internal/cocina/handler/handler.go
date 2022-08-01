@@ -2,6 +2,7 @@ package handler
 
 import (
 	"Parrillada/internal/cocina/service"
+	service2 "Parrillada/internal/comidas/service"
 	"Parrillada/models/comensal"
 	"Parrillada/models/comida"
 	"encoding/json"
@@ -13,16 +14,17 @@ import (
 type ComensalesService interface {
 	AgregarComensal(comensal comensal.IComensal) []comensal.IComensal
 	ObtenerComidasPreferidas(id string) []comida.IComida
-	ElegirPlato(id string) string
+	ElegirPlato(id string, comidasDisponibles []comida.IComida) string
 	LeAgradaPlato(plato comida.IComida, id string) []comida.IComida
 }
 
 type Handler struct {
 	comensalesService service.Service
+	comidasService    service2.Service
 }
 
-func NewComensalHandler(cs service.Service) Handler {
-	return Handler{comensalesService: cs}
+func NewComensalHandler(cs service.Service, comidaService service2.Service) Handler {
+	return Handler{comensalesService: cs, comidasService: comidaService}
 }
 
 func (h *Handler) AgregarComensal(c *gin.Context) {
@@ -93,12 +95,12 @@ func (h *Handler) ObtenerComidasPreferidas(c *gin.Context) {
 
 func (h *Handler) ElegirPlato(c *gin.Context) {
 	comensalId := c.Param("id")
-
+	//TODO inyectar servicio para escribir en el mismo repo
 	if comensalId == "" {
 		c.JSON(http.StatusBadRequest, "Ingrese un id de comensal valido")
 	}
-
-	resp := h.comensalesService.ElegirPlato(comensalId)
+	comidasDisponibles := h.comidasService.ConsultarPlatosDisponibles()
+	resp := h.comensalesService.ElegirPlato(comensalId, comidasDisponibles)
 
 	c.JSON(http.StatusOK, resp)
 	return

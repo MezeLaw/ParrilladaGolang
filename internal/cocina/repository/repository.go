@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"Parrillada/internal/comidas/repository"
+	service2 "Parrillada/internal/comidas/service"
 	"Parrillada/models/comensal"
 	"Parrillada/models/comida"
 	"Parrillada/utils"
@@ -9,12 +9,12 @@ import (
 )
 
 type Repository struct {
-	Comensales        []comensal.IComensal
-	ComidasRepository repository.Repository
+	Comensales     []comensal.IComensal
+	comidasService service2.Service
 }
 
-func NewComensalesRepository(comensales []comensal.IComensal, comidasRepository repository.Repository) Repository {
-	return Repository{Comensales: comensales, ComidasRepository: comidasRepository}
+func NewComensalesRepository(comensales []comensal.IComensal, comidasService service2.Service) Repository {
+	return Repository{Comensales: comensales, comidasService: comidasService}
 }
 
 func (r *Repository) AgregarComensal(comensal comensal.IComensal) []comensal.IComensal {
@@ -54,9 +54,9 @@ Si no le gusta ningún plato, lanzar un error.
 Si el plato existe, sacarlo de la cocina y hacer que el comensal lo coma.
 */
 
-func (r *Repository) ElegirPlato(id string) string {
+func (r *Repository) ElegirPlato(id string, comidasDispoRepo []comida.IComida) string {
 
-	if len(r.ComidasRepository.Comidas) < 1 {
+	if len(comidasDispoRepo) < 1 {
 		return "La cocina aun no tiene platos listos!"
 	}
 
@@ -73,7 +73,7 @@ func (r *Repository) ElegirPlato(id string) string {
 				plato := v.ComidasFavoritas[0]
 				platoDecodificado := utils.RetornarNombreStructHijoComida(plato)
 				//Decodifico el plato y veo si le gusta
-				for _, comidaDisponibles := range r.ComidasRepository.ConsultarPlatosDisponibles() {
+				for _, comidaDisponibles := range comidasDispoRepo {
 					comidaDisponibleDecodificada := utils.RetornarNombreStructHijoComida(comidaDisponibles)
 
 					if comidaDisponibleDecodificada == platoDecodificado {
@@ -81,22 +81,22 @@ func (r *Repository) ElegirPlato(id string) string {
 						case "*comida.Provoleta":
 							pd := comidaDisponibles.(*comida.Provoleta)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "provoleta consumida"
 						case "*comida.HamburguesaVegana":
 							pd := comidaDisponibles.(*comida.HamburguesaVegana)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "Hamburguesa vegana consumida"
 						case "*comida.HamburguesaDeCarne":
 							pd := comidaDisponibles.(*comida.HamburguesaDeCarne)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "Hamburguesa de carne consumida"
 						case "*comida.Parrillada":
 							pd := comidaDisponibles.(*comida.Parrillada)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "Parrillada consumida"
 						}
 					}
@@ -116,7 +116,7 @@ func (r *Repository) ElegirPlato(id string) string {
 				plato := v.ComidasFavoritas[0]
 				platoDecodificado := utils.RetornarNombreStructHijoComida(plato)
 				//Decodifico el plato y veo si le gusta
-				for _, comidaDisponibles := range r.ComidasRepository.ConsultarPlatosDisponibles() {
+				for _, comidaDisponibles := range comidasDispoRepo {
 					comidaDisponibleDecodificada := utils.RetornarNombreStructHijoComida(comidaDisponibles)
 
 					if comidaDisponibleDecodificada == platoDecodificado {
@@ -124,22 +124,22 @@ func (r *Repository) ElegirPlato(id string) string {
 						case "*comida.Provoleta":
 							pd := comidaDisponibles.(*comida.Provoleta)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "provoleta consumida"
 						case "*comida.HamburguesaVegana":
 							pd := comidaDisponibles.(*comida.HamburguesaVegana)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "Hamburguesa vegana consumida"
 						case "*comida.HamburguesaDeCarne":
 							pd := comidaDisponibles.(*comida.HamburguesaDeCarne)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "Hamburguesa de carne consumida"
 						case "*comida.Parrillada":
 							pd := comidaDisponibles.(*comida.Parrillada)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "Parrillada consumida"
 						}
 					}
@@ -158,7 +158,7 @@ func (r *Repository) ElegirPlato(id string) string {
 				plato := v.ComidasFavoritas[0]
 				platoDecodificado := utils.RetornarNombreStructHijoComida(plato)
 				//Decodifico el plato y veo si le gusta
-				for _, comidaDisponibles := range r.ComidasRepository.ConsultarPlatosDisponibles() {
+				for _, comidaDisponibles := range comidasDispoRepo {
 					comidaDisponibleDecodificada := utils.RetornarNombreStructHijoComida(comidaDisponibles)
 
 					if comidaDisponibleDecodificada == platoDecodificado {
@@ -166,22 +166,22 @@ func (r *Repository) ElegirPlato(id string) string {
 						case "*comida.Provoleta":
 							pd := comidaDisponibles.(*comida.Provoleta)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "provoleta consumida"
 						case "*comida.HamburguesaVegana":
 							pd := comidaDisponibles.(*comida.HamburguesaVegana)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "Hamburguesa vegana consumida"
 						case "*comida.HamburguesaDeCarne":
 							pd := comidaDisponibles.(*comida.HamburguesaDeCarne)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "Hamburguesa de carne consumida"
 						case "*comida.Parrillada":
 							pd := comidaDisponibles.(*comida.Parrillada)
 							v.Comer(pd)
-							r.ComidasRepository.EliminarPlato(pd.ID)
+							r.comidasService.EliminarPlato(pd.ID)
 							return "Parrillada consumida"
 						}
 					}
